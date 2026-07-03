@@ -36,32 +36,22 @@ div[data-testid="stCheckbox"] label {
 
 
 @st.cache_resource
-
-# ==========================================================
-# TODO 1: Build the Patient Intake Form
-# ==========================================================
-# Create a Streamlit form using st.form().
-# Add the following sections:
-# - Symptoms (st.checkbox)
-# - Duration (st.selectbox)
-# - Severity (st.selectbox)
-# - Medical History (st.checkbox)
-# - Patient Information (st.number_input, st.selectbox)
-
 def load_model():
-    with open("hospital_model.pkl", 'rb') as f:
+    with open('hospital_model.pkl', 'rb') as f:
         return pickle.load(f)
-bundle    = load_model()
-model     = bundle['model']
-scaler    = bundle['scaler']
-features  = bundle['features']
+
+bundle        = load_model()
+model         = bundle['model']
+scaler        = bundle['scaler']
+features      = bundle['features']
 cols_to_scale = bundle['cols_to_scale']
-dept_map_inv = bundle['dept_map_inv']
-gender_map  = bundle['gender_map']
-temp_map    = bundle['temp_map']
-hr_map      = bundle['hr_map']
-dur_map     = bundle['dur_map']
-cc_map      = bundle['cc_map']
+dept_map_inv  = bundle['dept_map_inv']
+gender_map    = bundle['gender_map']
+temp_map      = bundle['temp_map']
+hr_map        = bundle['hr_map']
+dur_map       = bundle['dur_map']
+cc_map        = bundle['cc_map']
+
 DEPT_INFO = {
     'Respiratory Medicine': {
         'icon':'🫁','color':'#0284c7','bg':'#e0f2fe','border':'#7dd3fc',
@@ -131,30 +121,21 @@ with st.form("triage_form"):
 
     c1, c2, c3, c4 = st.columns(4)
     with c1:
-        # 🌡️ TODO: Add Fever checkbox
-        # 🤧 TODO: Add Cough checkbox
-        fever    = st.checkbox("🌡️ Fever")
-        cough    = st.checkbox("🤧 Cough")
+        fever            = st.checkbox("🌡️  Fever")
+        cough            = st.checkbox("🤧  Cough")
     with c2:
-        # 🤕 TODO: Add Headache checkbox
-        # 💔 TODO: Add Chest Pain checkbox
-        headache  = st.checkbox('🤕 Headache')
-        chest_pain  = st.checkbox('💔 Chest Pain')
+        headache         = st.checkbox("🤕  Headache")
+        chest_pain       = st.checkbox("💔  Chest Pain")
     with c3:
-        # 🤢 TODO: Add Stomach Pain checkbox
-        # 😮‍💨 TODO: Add Shortness of Breath checkbox
-        stomach_pain  = st.checkbox('🤢 Stomach Pain')
-        shortness_breath = st.checkbox('😮‍💨 Shortness Of Breath')
+        stomach_pain     = st.checkbox("🤢  Stomach Pain")
+        shortness_breath = st.checkbox("😮‍💨  Shortness of Breath")
     with c4:
-        # 🤮 TODO: Add Nausea / Vomiting checkbox
-        # 😵 TODO: Add Dizziness checkbox
-        nausea_vomiting = st.checkbox('🤮 Nausea / Vomiting')
-        dizziness = st.checkbox('😵 Dizziness')
+        nausea_vomiting  = st.checkbox("🤮  Nausea / Vomiting")
+        dizziness        = st.checkbox("😵  Dizziness")
 
     c5, _, _, _ = st.columns(4)
     with c5:
-        # 🔴 TODO: Add Skin Rash checkbox
-        skin_rash = st.checkbox("🔴 Skin Rash")
+        skin_rash = st.checkbox("🔴  Skin Rash")
 
     st.markdown("<br>", unsafe_allow_html=True)
 
@@ -171,16 +152,11 @@ with st.form("triage_form"):
     """, unsafe_allow_html=True)
 
     col_cc, col_dur = st.columns(2)
-    # ==========================================================
-    # ⏳ TODO 2: Build the Duration & Chief Complaint section
-    # 💡 Hint: Use st.selectbox()
-    # ==========================================================
     with col_cc:
-        # 🩺 TODO: Add a select box for the Chief Complaint
-        chief_complaint = st.selectbox("Chief complaint", options=list(cc_map.keys()), index=1)
+        chief_complaint = st.selectbox("Chief complaint", options=list(cc_map.keys()))
     with col_dur:
-       # ⏳ TODO: Add a select box for the Duration of symptoms
-       duration = st.selectbox("Duration", options=list(dur_map.keys()), index=1)
+        duration = st.selectbox("Duration", options=list(dur_map.keys()), index=1)
+
     st.markdown("<br>", unsafe_allow_html=True)
 
     # Section 3 — Severity
@@ -196,16 +172,11 @@ with st.form("triage_form"):
     """, unsafe_allow_html=True)
 
     col_temp, col_hr = st.columns(2)
-    # ==========================================================
-    # 🌡️ TODO 3: Build the Severity section
-    # 💡 Hint: Use st.selectbox()
-    # ==========================================================
     with col_temp:
-        # 🌡️ TODO: Add a select box for the Temperature level
-        temperature_level = st.selecttbox("Temperature", options=list(temp_map.keys()), index=1)
+        temperature_level = st.selectbox("Temperature", options=list(temp_map.keys()), index=1)
     with col_hr:
-        # ❤️ TODO: Add a select box for the Heart Rate level
-        heart_rate_level = st.selectbox("Heart rate", options=list(hr_map.keys()), index=1)
+        heart_rate_level  = st.selectbox("Heart rate", options=list(hr_map.keys()), index=1)
+
     st.markdown("<br>", unsafe_allow_html=True)
 
     # Section 4 — Medical History
@@ -221,15 +192,10 @@ with st.form("triage_form"):
     """, unsafe_allow_html=True)
 
     ch1, ch2, ch3, _ = st.columns(4)
-    with ch1:
-        # 🩺 TODO: Add a checkbox for High Blood Pressure
-        hypertension = st.checkbox('🩺 High Blood Pressure')
-    with ch2:
-        # ❤️ TODO: Add a checkbox for Heart Disease
-        heart_disease = st.checkbox('❤️ Heart Disease')
-    with ch3:
-        # 💨 TODO: Add a checkbox for Asthma
-        asthma = st.checkbox('💨 Atshma')
+    with ch1: hypertension  = st.checkbox("🩺 High Blood Pressure")
+    with ch2: heart_disease = st.checkbox("❤️ Heart Disease")
+    with ch3: asthma        = st.checkbox("💨 Asthma")
+
     st.markdown("<br>", unsafe_allow_html=True)
 
     # Section 5 — Patient Info
@@ -245,16 +211,11 @@ with st.form("triage_form"):
     """, unsafe_allow_html=True)
 
     col_age, col_gen = st.columns(2)
-    # ==========================================================
-    # 👤 TODO 5: Build the Patient Information section
-    # 💡 Hint: Use st.number_input() and st.selectbox()
-    # ==========================================================
     with col_age:
-        # 🎂 TODO: Add a number input for the patient's age
-        age = st.number_input('Age', min_value=1, max_value=120, value=35)
+        age    = st.number_input("Age", min_value=1, max_value=120, value=35)
     with col_gen:
-        # 👤 TODO: Add a select box for the patient's gender
-        gender = st.selectbox('Gender', options=['Female', 'Male'])
+        gender = st.selectbox("Gender", options=['Female', 'Male'])
+
     submitted = st.form_submit_button("Get AI Recommendation →")
 
 # ── Result ────────────────────────────────────────────────────────────────────
